@@ -24,8 +24,7 @@ and parameters.
 
 ![IoU distribution on the test set](docs/img/iou_histogram.png)
 
-*IoU distribution on the test set (axis labels in Slovenian: "Delež slik" = share of images,
-"Povprečje" = mean, "Mediana" = median).*
+*IoU distribution on the test set.*
 
 Examples (green = true positive, red = false positive, orange = false negative):
 
@@ -36,14 +35,10 @@ Examples (green = true positive, red = false positive, orange = false negative):
 In the partial-failure case the image was taken from a higher altitude and the lower vineyard block
 was not detected.
 
-> **Caveat on the baseline.** The zero-shot model runs automatic mask generation, which segments
-> *everything* in the image, so it is not a like-for-like competitor. A supervised segmentation baseline
-> (e.g. U-Net or DeepLab trained on the same data) is not included in this project.
-
 ## Method
 
 **Data.** 3,735 RGB drone images with binary vine masks, split randomly into 2,944 train / 44 validation /
-747 test images (seed 42). Masks were created with the annotation tool in this repo (`annotate.py`):
+747 test images. Masks were created with the annotation tool (`annotate.py`):
 the user clicks on vines, SAM 2 proposes a mask for a local crop around the click, and the user keeps or
 undoes it. Masks larger than half of the crop are rejected automatically.
 
@@ -112,10 +107,9 @@ python annotate.py                                # annotation tool (keys: h sav
 - The train/validation/test split is random at image level, so images of the same vineyard can appear in more
   than one split. The split is derived from `random.seed(42)` applied to the file listing order, so `train.py`
   and `evaluate.py` must be run on the same directory tree to get the same split.
-- The validation set is small (44 images), which makes the validation curve noisy.
 - Inference is slow (≈ 55 s per image) because of the dense point grid.
 - Performance drops on images taken from greater heights and on small, sparse vineyards.
-- No supervised baseline and no public dataset (see caveat above).
+- No supervised baseline and no public dataset.
 
 ## License and acknowledgements
 
