@@ -1,0 +1,7 @@
+torch>=2.5.1
+torchvision>=0.20.1
+numpy
+opencv-python
+pillow
+matplotlib
+# SAM 2 itself is installed from source: https://github.com/facebookresearch/sam2
