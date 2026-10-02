@@ -37,16 +37,16 @@ was not detected.
 
 ## Method
 
-**Data.** 3,735 RGB drone images with binary vine masks, split randomly into 2,944 train / 44 validation /
+Data consists of 3,735 RGB drone images with binary vine masks, split randomly into 2,944 train / 44 validation /
 747 test images. Masks were created with the annotation tool (`annotate.py`):
 the user clicks on vines, SAM 2 proposes a mask for a local crop around the click, and the user keeps or
 undoes it. Masks larger than half of the crop are rejected automatically.
 
 ![Annotation tool](docs/img/annotation_tool.png)
 
-*Annotation workflow: original image (left) and the SAM 2 masks proposed from the user's clicks (right).*
+*Annotation workflow example.*
 
-**Training (`train.py`).**
+**Training:**
 - Base model: SAM 2.1 Hiera-Large. The image encoder is not updated (image features are computed under
   `torch.no_grad()` inside `SAM2ImagePredictor.set_image_batch`); the prompt encoder and mask decoder are trained.
 - Each iteration: 10 random images, a random 1024×1024 crop of each, horizontal flip and slight Gaussian blur
@@ -65,10 +65,10 @@ tile and all masks are merged into one binary vineyard mask. Metrics: IoU and F1
 ## Repository structure
 
 ```
-train.py        fine-tuning (iteration based)
-evaluate.py     tiled inference + IoU/F1 on the test split, saves masks, overlays and results.csv
-annotate.py     interactive semi-automatic annotation tool (matplotlib + SAM 2)
-docs/img/       figures used in this README
+train.py        fine-tuning
+evaluate.py     inference and metrics, saves masks, overlays and results.csv
+annotate.py     annotation tool
+docs/img/       figures used
 ```
 
 ## Setup
@@ -85,7 +85,7 @@ Data layout (the dataset is **not** included in this repository):
 
 ```
 data/images/<any subfolders>/IMG_0001.JPG
-data/masks/<same subfolders>/IMG_0001.png      # binary mask, 255 = vine
+data/masks/<same subfolders>/IMG_0001.png
 checkpoints/sam2.1_hiera_large.pt
 ```
 
@@ -104,12 +104,9 @@ python annotate.py                                # annotation tool (keys: h sav
 
 ## Limitations
 
-- The train/validation/test split is random at image level, so images of the same vineyard can appear in more
-  than one split. The split is derived from `random.seed(42)` applied to the file listing order, so `train.py`
-  and `evaluate.py` must be run on the same directory tree to get the same split.
+- Dataset not provided, model strength depends on dataset quality.
 - Inference is slow (≈ 55 s per image) because of the dense point grid.
 - Performance drops on images taken from greater heights and on small, sparse vineyards.
-- No supervised baseline and no public dataset.
 
 ## License and acknowledgements
 
