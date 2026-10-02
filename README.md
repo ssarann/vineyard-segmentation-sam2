@@ -30,7 +30,7 @@ and parameters.
 
 *F1 distribution on the test set.*
 
-Examples (green = true positive, red = false positive, orange = false negative):
+#Examples (green = true positive, red = false positive, orange = false negative):
 
 | Good (IoU 0.916) | Average (IoU 0.764) | Partial failure (IoU 0.476) |
 |---|---|---|
@@ -46,9 +46,9 @@ Data consists of 3,735 RGB drone images with binary vine masks, split randomly i
 the user clicks on vines, SAM 2 proposes a mask for a local crop around the click, and the user keeps or
 undoes it. Masks larger than half of the crop are rejected automatically.
 
-![Annotation tool](docs/img/annotation_tool.png)
+<img src="docs/img/annotation_tool.png" width="500">
 
-*Annotation workflow example.*
+*Annotation example.*
 
 **Training:**
 - Base model: SAM 2.1 Hiera-Large. The image encoder is not updated (image features are computed under
