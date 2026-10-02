@@ -22,11 +22,11 @@ and parameters.
 - Inference on the full test set took 11 h 22 min on one H100 (≈ 55 s per image).
 - Best validation IoU: 0.7498 (iteration 27,000). Reported test results use the final checkpoint (iteration 30,000).
 
-![IoU distribution on the test set](docs/img/iou_histogram.jpg)
+<img src="docs/img/iou_histogram.jpg" width="500">
 
 *IoU distribution on the test set.*
 
-![F1 distribution on the test set](docs/img/f1_histogram.jpg)
+<img src="docs/img/f1_histogram.jpg" width="500">
 
 *F1 distribution on the test set.*
 
